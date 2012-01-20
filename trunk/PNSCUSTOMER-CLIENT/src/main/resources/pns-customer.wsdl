@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>	
+<definitions name='pns-customer-service'
+	targetNamespace='http://www.specsavers.nl/pns/pns-customer-service/'
+	xmlns='http://schemas.xmlsoap.org/wsdl/' xmlns:soap='http://schemas.xmlsoap.org/wsdl/soap/'
+	xmlns:tns='http://www.specsavers.nl/pns/pns-customer-service/'
+	xmlns:xsd='http://www.w3.org/2001/XMLSchema'>
+	<types>
+		<xs:schema targetNamespace='http://www.specsavers.nl/pns/pns-customer-service/'
+			version='1.0' xmlns:tns='http://www.specsavers.nl/pns/pns-customer-service/'
+			xmlns:xs='http://www.w3.org/2001/XMLSchema'>
+			<xs:element name='PNSCustomerFaultMessage' nillable='true'
+				type='tns:PNSCustomerFault' />
+			<xs:element name='PNSCustomerRequestMessage' nillable='true'
+				type='tns:PNSCustomerRequest' />
+			<xs:element name='PNSCustomerResponseMessage' type='tns:PNSCustomerResponse' />
+			<xs:complexType name='PNSCustomerRequest'>
+				<xs:sequence>
+					<xs:element name='timestamp' type='xs:dateTime' />
+
+					<xs:element name='sender' type='xs:string' />
+					<xs:element name='requestTag' type='xs:string' />
+					<xs:element name='screeningTag' type='xs:string' />
+					<xs:element name='screeningStatus' type='xs:string' />
+					<xs:element name='customerData' type='xs:string' />
+					<xs:element name='screeningData' type='xs:string' />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name='PNSCustomerResponse'>
+
+				<xs:sequence>
+					<xs:element name='timestamp' type='xs:dateTime' />
+					<xs:element name='sender' type='xs:string' />
+					<xs:element name='requestTag' type='xs:string' />
+					<xs:element name='responseTag' type='xs:string' />
+					<xs:element name='screeningTag' type='xs:string' />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name='PNSCustomerFault'>
+
+				<xs:sequence>
+					<xs:element name='faultCode' type='xs:string' />
+					<xs:element name='faultDescription' type='xs:string' />
+				</xs:sequence>
+			</xs:complexType>
+		</xs:schema>
+	</types>
+	<message name='PNSCustomerFaultMessage'>
+		<part element='tns:PNSCustomerFaultMessage' name='PNSCustomerFaultMessage'></part>
+
+	</message>
+	<message name='pns-customer-service_PNSCustomer'>
+		<part element='tns:PNSCustomerRequestMessage' name='pnsCustomerRequest'></part>
+	</message>
+	<message name='pns-customer-service_PNSCustomerResponse'>
+		<part element='tns:PNSCustomerResponseMessage' name='pnsCustomerResponse'></part>
+	</message>
+	<portType name='pns-customer-service'>
+		<operation name='PNSCustomer' parameterOrder='pnsCustomerRequest'>
+
+			<input message='tns:pns-customer-service_PNSCustomer'></input>
+			<output message='tns:pns-customer-service_PNSCustomerResponse'></output>
+			<fault message='tns:PNSCustomerFaultMessage' name='PNSCustomerFaultMessage'></fault>
+		</operation>
+	</portType>
+	<binding name='pns-customer-serviceBinding' type='tns:pns-customer-service'>
+		<soap:binding style='document'
+			transport='http://schemas.xmlsoap.org/soap/http' />
+		<operation name='PNSCustomer'>
+			<soap:operation
+				soapAction='http://www.specsavers.nl/pns/pns-customer-service/PNSCustomer' />
+
+			<input>
+				<soap:body use='literal' />
+			</input>
+			<output>
+				<soap:body use='literal' />
+			</output>
+			<fault name='PNSCustomerFaultMessage'>
+				<soap:fault name='PNSCustomerFaultMessage' use='literal' />
+			</fault>
+
+		</operation>
+	</binding>
+	<service name='pns-customer-service'>
+		<port binding='tns:pns-customer-serviceBinding' name='pns-customer-serviceSOAP'>
+			<soap:address location='http://test.bec-pns.nl/pns/customerService' />
+		</port>
+	</service>
+</definitions>
