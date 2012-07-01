@@ -20,6 +20,7 @@ public class EmployeeClient {
 		System.out.println(service.path("departments").path("employee")
 				.accept(MediaType.TEXT_PLAIN).get(ClientResponse.class)
 				.toString());
+		
 		/*// Get plain text
 		System.out.println(service.path("rest").path("hello")
 				.accept(MediaType.TEXT_PLAIN).get(String.class));
