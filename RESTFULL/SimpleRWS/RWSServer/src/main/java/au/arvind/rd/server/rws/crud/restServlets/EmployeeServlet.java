@@ -1,22 +1,29 @@
 package au.arvind.rd.server.rws.crud.restServlets;
 
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import au.arvind.rd.server.rws.crud.model.Employee;
+import au.arvind.rd.server.rws.crud.service.EmployeeService;
 import au.arvind.rd.server.rws.crud.service.EmployeeServiceImpl;
 
 @Path("/employee")
 public class EmployeeServlet {
-	
+	EmployeeService employeeService = new EmployeeServiceImpl();
 	public EmployeeServlet(){
 		super();
-		System.out.println("+++++++++++++++++++++Constractor");
+	}
+	
+	@GET
+	@Produces(MediaType.TEXT_XML)
+	public Employee getEmployee() {
+		String employeeId = "";
+		return employeeService.getEmployee(employeeId);
 	}
 
-	@GET
+	/*@GET
 	@Produces(MediaType.TEXT_PLAIN)
 	public String getDepartmentId(String empId) {
 		System.out.println("text plain");
@@ -44,5 +51,5 @@ public class EmployeeServlet {
 		System.out.println("txt html post");
 		return "<html> " + "<title>" + "Hello Jersey" + "</title>"
 		+ "<body><h1>" + new EmployeeServiceImpl().getDepartmentId(empId) + "</body></h1>" + "</html> ";
-	}
+	}*/
 }
