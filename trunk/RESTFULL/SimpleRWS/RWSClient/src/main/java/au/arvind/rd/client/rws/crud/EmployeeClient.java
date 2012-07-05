@@ -5,6 +5,8 @@ import java.net.URI;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriBuilder;
 
+import au.arvind.rd.server.rws.crud.model.Employee;
+
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
@@ -17,24 +19,15 @@ public class EmployeeClient {
 		Client client = Client.create(config);
 		WebResource service = client.resource(getBaseURI());
 		// Fluent interfaces
-		System.out.println(service.path("departments").path("employee")
-				.accept(MediaType.TEXT_PLAIN).get(ClientResponse.class)
-				.toString());
+		ClientResponse clientResponse=service.path("departments").path("employee")
+				.accept(MediaType.TEXT_XML).get(ClientResponse.class);
 		
-		/*// Get plain text
-		System.out.println(service.path("rest").path("hello")
-				.accept(MediaType.TEXT_PLAIN).get(String.class));
-		// Get XML
-		System.out.println(service.path("rest").path("hello")
-				.accept(MediaType.TEXT_XML).get(String.class));
-		// The HTML
-		System.out.println(service.path("rest").path("hello")
-				.accept(MediaType.TEXT_HTML).get(String.class));*/
-
+		//System.out.println(clientResponse.getEntity(String.class));		
+		System.out.println(clientResponse.getEntity(Employee.class));
 	}
 
 	private static URI getBaseURI() {
 		return UriBuilder.fromUri(
-				"http://localhost:8080/RWSServer").build();
+				"http://localhost:8080/Departments").build();
 	}
 }
