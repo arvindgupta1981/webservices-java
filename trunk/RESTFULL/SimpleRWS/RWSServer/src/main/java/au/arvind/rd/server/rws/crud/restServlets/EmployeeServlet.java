@@ -1,6 +1,9 @@
 package au.arvind.rd.server.rws.crud.restServlets;
 
+import javax.ws.rs.Consumes;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -21,6 +24,13 @@ public class EmployeeServlet {
 	public Employee getEmployee() {
 		String employeeId = "";
 		return employeeService.getEmployee(employeeId);
+	}
+	
+	@POST
+	@Produces(MediaType.TEXT_HTML)
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	public void newEmployee(@FormParam("empId") String empId, @FormParam("name") String name, @FormParam("salary") String salary) {
+		System.out.println(empId+":"+name+":"+salary);
 	}
 
 	/*@GET
