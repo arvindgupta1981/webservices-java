@@ -1,12 +1,21 @@
 package au.arvind.rd.server.rws.crud.restServlets;
 
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Request;
+import javax.ws.rs.core.UriInfo;
+
+import com.sun.jersey.api.container.httpserver.HttpServerFactory;
 
 import au.arvind.rd.server.rws.crud.model.Employee;
 import au.arvind.rd.server.rws.crud.service.EmployeeService;
@@ -14,6 +23,11 @@ import au.arvind.rd.server.rws.crud.service.EmployeeServiceImpl;
 
 @Path("/employee")
 public class EmployeeServlet {
+	@Context
+	UriInfo uriInfo;
+	@Context
+	Request request;
+	
 	EmployeeService employeeService = new EmployeeServiceImpl();
 	public EmployeeServlet(){
 		super();
@@ -29,8 +43,17 @@ public class EmployeeServlet {
 	@POST
 	@Produces(MediaType.TEXT_HTML)
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public void newEmployee(@FormParam("empId") String empId, @FormParam("name") String name, @FormParam("salary") String salary) {
+	public String newEmployee(@FormParam("empId") String empId, @FormParam("name") String name, 
+			@FormParam("salary") String salary, @Context HttpServletResponse response, @Context HttpServletRequest servletRequest) throws IOException {
 		System.out.println(empId+":"+name+":"+salary);
+		System.out.println(uriInfo.getPath());
+		System.out.println(uriInfo.getAbsolutePath());
+		System.out.println(uriInfo.getBaseUri());
+		System.out.println(uriInfo.getRequestUri());
+		System.out.println(servletRequest.getQueryString());
+		//response.sendRedirect("../Departments.jsp");
+		return "<html> " + "<title>" + "Hello Jersey" + "</title>"
+		+ "<body><h1>" + "Employee Created"+ "</body></h1>" + "</html> ";
 	}
 
 	/*@GET
