@@ -3,26 +3,11 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
 	
-	<display-name>Departments Web Service</display-name>
-	
-	<servlet>
-		<servlet-name>RESTWEBSERVICES</servlet-name>
-		<servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
-		<init-param>
-			<param-name>com.sun.jersey.config.property.packages</param-name>
-			<param-value>au.arvind.rd.server.rws.crud.restServlets</param-value>
-		</init-param>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>RESTWEBSERVICES</servlet-name>
-		<url-pattern>/departments/*</url-pattern>
-	</servlet-mapping>
-
+	<display-name>Departments Client Web Service</display-name>
 	<session-config>
 		<session-timeout>10</session-timeout>
 	</session-config>
 	<welcome-file-list>
-		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>Departments.jsp</welcome-file>
 	</welcome-file-list>
 </web-app>

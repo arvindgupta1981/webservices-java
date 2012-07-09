@@ -21,13 +21,13 @@ public class EmployeeClient {
 		// Fluent interfaces
 		ClientResponse clientResponse=service.path("departments").path("employee")
 				.accept(MediaType.TEXT_XML).get(ClientResponse.class);
-		
+		System.out.println(clientResponse.getStatus());
 		//System.out.println(clientResponse.getEntity(String.class));		
 		System.out.println(clientResponse.getEntity(Employee.class));
 	}
 
 	private static URI getBaseURI() {
 		return UriBuilder.fromUri(
-				"http://localhost:8080/Departments").build();
+				"http://localhost:8080/RWSServer").build();
 	}
 }
