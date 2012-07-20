@@ -17,8 +17,8 @@
 		</dependency>
 	</dependencies>
 	<build>
-		<finalName>DepartmentsClient.war</finalName>
-	<!-- 	<plugins>
+		<finalName>DepartmentsClient</finalName>
+		<plugins>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>tomcat-maven-plugin</artifactId>
@@ -30,7 +30,7 @@
 					<warDirectory>D:/workspace_indigo/RESTFULL/SimpleRWS/RWSClient/target</warDirectory>
 				</configuration>
 			</plugin>
-		</plugins> -->
+		</plugins>
 	</build>
 
 </project>
