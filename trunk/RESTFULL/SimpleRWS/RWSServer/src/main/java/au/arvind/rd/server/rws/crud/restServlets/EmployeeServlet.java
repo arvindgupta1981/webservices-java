@@ -15,8 +15,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Request;
 import javax.ws.rs.core.UriInfo;
 
-import com.sun.jersey.api.container.httpserver.HttpServerFactory;
-
 import au.arvind.rd.server.rws.crud.model.Employee;
 import au.arvind.rd.server.rws.crud.service.EmployeeService;
 import au.arvind.rd.server.rws.crud.service.EmployeeServiceImpl;
@@ -51,6 +49,7 @@ public class EmployeeServlet {
 		System.out.println(uriInfo.getBaseUri());
 		System.out.println(uriInfo.getRequestUri());
 		System.out.println(servletRequest.getQueryString());
+			
 		//response.sendRedirect("../Departments.jsp");
 		return "<html> " + "<title>" + "Hello Jersey" + "</title>"
 		+ "<body><h1>" + "Employee Created"+ "</body></h1>" + "</html> ";
