@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -20,18 +21,26 @@ public class DepartmentServlet {
 	
 	DepartmentService departmentService=new DepartmentServiveImpl();
 	
+	public DepartmentServlet(){
+		super();
+		departmentService.addDepartment(new Department(1L, "IT"));
+		departmentService.addDepartment(new Department(2L, "IT"));
+	}
+	
 	@POST
 	@Path("/add")
 	@Consumes(MediaType.TEXT_XML)
 	@Produces(MediaType.TEXT_PLAIN)
-	Long addDepartment(Department department) {
+	public Long addDepartment(Department department) {
+		System.out.println("server add");
 		return departmentService.addDepartment(department);
 	}
 	
 	@DELETE
 	@Path("/delete")
 	@Consumes(MediaType.TEXT_XML)
-	void deleteDepartment(Department department) {
+	public void deleteDepartment(Department department) {
+		System.out.println("server delete");
 		departmentService.deleteDepartment(department);
 	}
 
@@ -39,29 +48,33 @@ public class DepartmentServlet {
 	@Path("/update")
 	@Consumes(MediaType.TEXT_XML)
 	@Produces(MediaType.TEXT_XML)
-	Department modifyDepartment(Department department) {
+	public Department modifyDepartment(Department department) {
+		System.out.println("server update");
 		return departmentService.modifyDepartment(department);
 	}
 
-	@POST
+	@GET
 	@Path("/get")
 	@Consumes(MediaType.TEXT_PLAIN)
 	@Produces(MediaType.TEXT_XML)
-	Department getDepartment(Long id) {
+	public Department getDepartment(Long id) {
+		System.out.println("server get");
 		return departmentService.getDepartment(id);
 	}
 
-	@POST
+	@GET
 	@Path("/gets")
 	@Produces(MediaType.TEXT_XML)
-	Collection<Department> getDepartments() {
+	public Collection<Department> getDepartments() {
+		System.out.println("server gets");
 		return departmentService.getDepartments();
 	}
 
-	@POST
+	@GET
 	@Path("/getEmployees")
 	@Produces(MediaType.TEXT_XML)
-	Collection<Employee> getEmployees() {
+	public Collection<Employee> getEmployees() {
+		System.out.println("server get emp");
 		return departmentService.getEmployees();
 	}
 
