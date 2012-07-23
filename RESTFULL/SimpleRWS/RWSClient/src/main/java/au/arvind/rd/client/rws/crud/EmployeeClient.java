@@ -19,11 +19,11 @@ public class EmployeeClient {
 		Client client = Client.create(config);
 		WebResource service = client.resource(getBaseURI());
 		// Fluent interfaces
-		ClientResponse clientResponse=service.path("departments").path("employee")
+		ClientResponse clientResponse=service.path("departments").path("departments").path("gets")
 				.accept(MediaType.TEXT_XML).get(ClientResponse.class);
 		System.out.println(clientResponse.getStatus());
 		//System.out.println(clientResponse.getEntity(String.class));		
-		System.out.println(clientResponse.getEntity(Employee.class));
+		System.out.println(clientResponse.getEntity(String.class));
 	}
 
 	private static URI getBaseURI() {
