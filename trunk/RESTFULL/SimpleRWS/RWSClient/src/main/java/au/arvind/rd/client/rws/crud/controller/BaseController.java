@@ -24,7 +24,7 @@ public abstract class BaseController extends HttpServlet {
 
 	}
 
-	protected ClientResponse getClientResponse(String mediaType, String method, String...paths) {
+	protected <T> ClientResponse getClientResponse(T t, String mediaType, String method, String...paths) {
 		ClientConfig config = new DefaultClientConfig();
 		Client client = Client.create(config);
 		WebResource service = client.resource(getBaseURI());
@@ -39,7 +39,7 @@ public abstract class BaseController extends HttpServlet {
 		if(method.equalsIgnoreCase("get")){
 			return getWebresourceBuilder(mediaType, service).get(ClientResponse.class);
 		}else if(method.equalsIgnoreCase("post")){
-			return getWebresourceBuilder(mediaType, service).post(ClientResponse.class);
+			return getWebresourceBuilder(mediaType, service).post(ClientResponse.class, t);
 		} else if(method.equalsIgnoreCase("put")){
 			return getWebresourceBuilder(mediaType, service).put(ClientResponse.class);
 		}else {
