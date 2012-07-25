@@ -1,6 +1,7 @@
 package au.arvind.rd.server.rws.crud.restServlets;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -8,6 +9,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -39,11 +41,10 @@ public class DepartmentServlet {
 	}
 
 	@DELETE
-	@Path("/delete")
-	@Consumes(MediaType.TEXT_XML)
-	public void deleteDepartment(Department department) {
+	@Path("/delete/{depId}")
+	public void deleteDepartment(@PathParam("depId") String depId) {
 		System.out.println("server delete");
-		departmentService.deleteDepartment(department);
+		departmentService.deleteDepartment(getDepartment(depId));
 	}
 
 	@PUT
@@ -56,18 +57,42 @@ public class DepartmentServlet {
 	}
 
 	@GET
-	@Path("/get")
-	@Consumes(MediaType.TEXT_PLAIN)
+	@Path("/get/{depId}")
 	@Produces(MediaType.TEXT_XML)
-	public Department getDepartment(Long id) {
-		System.out.println("server get");
-		return departmentService.getDepartment(id);
+	public Department getDepartment(@PathParam("depId") String depId) {
+		System.out.println("server get"+depId);
+		if(depId==null || depId.length()==0){
+			return departmentService.getDepartments().get(0);
+		}
+		return departmentService.getDepartment(Long.parseLong(depId));
+	}
+	
+	@GET
+	@Path("/previos/{depId}")
+	@Produces(MediaType.TEXT_XML)
+	public Department getPreviousDepartment(@PathParam("depId") String depId) {
+		System.out.println("server get"+depId);
+		if(depId==null || depId.length()==0){
+			return departmentService.getDepartments().get(0);
+		}
+		return departmentService.getDepartment(Long.parseLong(depId));
+	}
+	
+	@GET
+	@Path("/next/{depId}")
+	@Produces(MediaType.TEXT_XML)
+	public Department getNextDepartment(@PathParam("depId") String depId) {
+		System.out.println("server get"+depId);
+		if(depId==null || depId.length()==0){
+			return departmentService.getDepartments().get(0);
+		}
+		return departmentService.getDepartment(Long.parseLong(depId));
 	}
 
 	@GET
 	@Path("/gets")
 	@Produces(MediaType.TEXT_XML)
-	public Collection<Department> getDepartments() {
+	public List<Department> getDepartments() {
 		System.out.println("server gets");
 		return departmentService.getDepartments();
 	}
@@ -75,7 +100,7 @@ public class DepartmentServlet {
 	@GET
 	@Path("/getEmployees")
 	@Produces(MediaType.TEXT_XML)
-	public Collection<Employee> getEmployees() {
+	public List<Employee> getEmployees() {
 		System.out.println("server get emp");
 		return departmentService.getEmployees();
 	}

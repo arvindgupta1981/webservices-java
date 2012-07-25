@@ -2,13 +2,14 @@ package au.arvind.rd.server.rws.crud.service;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import au.arvind.rd.server.rws.crud.model.Department;
 import au.arvind.rd.server.rws.crud.model.Employee;
 
 public class DepartmentServiveImpl implements DepartmentService {
-	Collection<Employee> employees = new ArrayList<Employee>();
-	Collection<Department> departments = new ArrayList<Department>();
+	List<Employee> employees = new ArrayList<Employee>();
+	List<Department> departments = new ArrayList<Department>();
 
 	public DepartmentServiveImpl() {
 		employees.add(new Employee("Emp001", "Arvind", 100000, "Dept001"));
@@ -17,7 +18,7 @@ public class DepartmentServiveImpl implements DepartmentService {
 	}
 
 	@Override
-	public Collection<Employee> getEmployees() {
+	public List<Employee> getEmployees() {
 		return employees;
 	}
 
@@ -43,7 +44,7 @@ public class DepartmentServiveImpl implements DepartmentService {
 	}
 
 	@Override
-	public Collection<Department> getDepartments() {
+	public List<Department> getDepartments() {
 		return departments;
 	}
 }
