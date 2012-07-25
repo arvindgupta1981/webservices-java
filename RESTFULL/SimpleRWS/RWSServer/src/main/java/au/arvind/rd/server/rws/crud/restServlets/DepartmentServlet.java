@@ -18,24 +18,26 @@ import au.arvind.rd.server.rws.crud.service.DepartmentServiveImpl;
 
 @Path("/departments")
 public class DepartmentServlet {
-	
-	DepartmentService departmentService=new DepartmentServiveImpl();
-	
-	public DepartmentServlet(){
+
+	DepartmentService departmentService = new DepartmentServiveImpl();
+
+	public DepartmentServlet() {
 		super();
-		departmentService.addDepartment(new Department(1L, "IT"));
-		departmentService.addDepartment(new Department(2L, "IT"));
+		departmentService.addDepartment(new Department(1l, "IT"));
+		departmentService.addDepartment(new Department(2l, "HR"));
+		departmentService.addDepartment(new Department(3l, "Admin"));
+		departmentService.addDepartment(new Department(4l, "Management"));
 	}
-	
+
 	@POST
 	@Path("/add")
-	@Consumes(MediaType.TEXT_XML)
-	@Produces(MediaType.TEXT_PLAIN)
-	public Long addDepartment(Department department) {
+	//@Consumes(MediaType.TEXT_XML)
+	@Produces(MediaType.TEXT_XML)
+	public String addDepartment(Department department) {
 		System.out.println("server add");
-		return departmentService.addDepartment(department);
+		return departmentService.addDepartment(department).toString();
 	}
-	
+
 	@DELETE
 	@Path("/delete")
 	@Consumes(MediaType.TEXT_XML)
