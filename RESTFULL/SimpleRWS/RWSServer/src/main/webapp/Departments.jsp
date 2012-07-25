@@ -8,7 +8,7 @@
 <body>
 	<form action="departments">
 	<label for="id">Department ID</label>
-	<input name="empId" />
+	<input name="depId" />
 	<br/>
 	<label for="name">Name</label>
 	<input name="name" />
