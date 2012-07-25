@@ -1,7 +1,6 @@
 package au.arvind.rd.server.rws.crud.service;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collection;
 
 import au.arvind.rd.server.rws.crud.model.Department;
@@ -23,11 +22,9 @@ public class DepartmentServiveImpl implements DepartmentService {
 	}
 
 	@Override
-	public Long addDepartment(Department department) {
-		long timeInMillis = Calendar.getInstance().getTimeInMillis();
-		department.setId(timeInMillis);
+	public Long addDepartment(Department department) {		
 		departments.add(department);
-		return timeInMillis;
+		return department.getId();
 	}
 
 	@Override
