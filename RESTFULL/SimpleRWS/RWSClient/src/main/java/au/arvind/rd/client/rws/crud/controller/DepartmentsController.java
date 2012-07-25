@@ -1,7 +1,6 @@
 package au.arvind.rd.client.rws.crud.controller;
 
 import java.io.IOException;
-import java.net.HttpRetryException;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,20 +26,15 @@ public class DepartmentsController extends BaseController {
 		if (req.getParameter("action").equals("gets")) {
 			System.out.println("client gets");
 			String[] paths = {"departments","departments","gets"};
-			ClientResponse response = getClientResponse(null, MediaType.TEXT_XML,"GET",paths);
+			ClientResponse response = getClientResponse(null, MediaType.TEXT_XML,"GET",paths);			
+			postProcessGet(req, resp, response);		 		
 			
-			System.out.println(isResponseOK(response));
-			if(isResponseOK(response)) {
-				Department[] departments = response.getEntity(Department[].class);
-				List<Department> deptList = new ArrayList<Department>();
-				req.setAttribute("departments", deptList);
-				for(Department department:departments){
-					System.out.println(department.toString());
-					deptList.add(department);
-				}
-				req.getRequestDispatcher("Departments.jsp").forward(req, resp);
-			}		 		
-		} 
+		} else if (req.getParameter("action").equals("get") || req.getParameter("action").equals("previous") || req.getParameter("action").equals("next")) {
+			System.out.println("client get");
+			String[] paths = {"departments","departments",req.getParameter("action").toString(),req.getParameter("depId").toString()};
+			ClientResponse response = getClientResponse(null, MediaType.TEXT_XML,"GET",paths);
+			postProcessGet(req, resp, response);		 		
+		}  
 	}
 
 	@Override
@@ -48,20 +42,52 @@ public class DepartmentsController extends BaseController {
 			throws ServletException, IOException {
 		System.out.println("Post" + req.getMethod());
 		if (req.getParameter("action").equals("add")) {
-			System.out.println("client gets");
+			System.out.println("client add");
 			String[] paths = {"departments","departments","add"};
 			ClientResponse response = getClientResponse(buildDepartment(req),MediaType.TEXT_XML,"POST",paths);
 			
-			System.out.println(isResponseOK(response));
-			if(isResponseOK(response)) {
-				System.out.println("Client resp. id:"+response.getEntity(String.class));
-				resp.sendRedirect("departments?action=gets");
-			}		 		
+			postProcessPost(resp, response);		 		
+		} else if (req.getParameter("action").equals("update")) {
+			System.out.println("client gets");
+			String[] paths = {"departments","departments","update"};
+			ClientResponse response = getClientResponse(buildDepartment(req),MediaType.TEXT_XML,"PUT",paths);
+			
+			postProcessPost(resp, response);		 		
+		} else if (req.getParameter("action").equals("delete")) {
+			System.out.println("client gets");
+			String[] paths = {"departments","departments","delete"};
+			ClientResponse response = getClientResponse(buildDepartment(req),MediaType.TEXT_XML,"DELETE",paths);
+			
+			postProcessPost(resp, response);		 		
+		}
+	}
+
+	private void postProcessPost(HttpServletResponse resp,
+			ClientResponse response) throws IOException {
+		System.out.println(isResponseOK(response));
+		if(isResponseOK(response)) {
+			System.out.println("Client resp. id:"+response.getEntity(String.class));
+			resp.sendRedirect("departments?action=gets");
 		}
 	}
 	
+	private void postProcessGet(HttpServletRequest req, HttpServletResponse resp,
+			ClientResponse response) throws ServletException, IOException {
+		System.out.println(isResponseOK(response));
+		if(isResponseOK(response)) {
+			Department[] departments = response.getEntity(Department[].class);
+			List<Department> deptList = new ArrayList<Department>();
+			req.setAttribute("departments", deptList);
+			for(Department department:departments){
+				System.out.println(department.toString());
+				deptList.add(department);
+			}
+			req.getRequestDispatcher("Departments.jsp").forward(req, resp);
+		}
+	}
+
 	private Department buildDepartment(HttpServletRequest req){
-		Department department = new Department(Long.parseLong(req.getParameter("empId")), req.getParameter("name").toString());
+		Department department = new Department(Long.parseLong(req.getParameter("depId")), req.getParameter("name").toString());
 		return department;
 	}
 
