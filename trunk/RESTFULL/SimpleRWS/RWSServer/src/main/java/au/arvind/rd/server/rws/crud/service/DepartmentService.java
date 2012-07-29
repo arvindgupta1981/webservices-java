@@ -8,8 +8,8 @@ import au.arvind.rd.server.rws.crud.model.Employee;
 public interface DepartmentService {
 	Long addDepartment(Department department);
 	void deleteDepartment(Department department);
-	Department modifyDepartment(Department department);
-	Department getDepartment(Long id);
+	List<Department> modifyDepartment(Department department);
+	List<Department> getDepartment(Long id);
 	List<Department> getDepartments();
 	List<Employee> getEmployees();
 }
