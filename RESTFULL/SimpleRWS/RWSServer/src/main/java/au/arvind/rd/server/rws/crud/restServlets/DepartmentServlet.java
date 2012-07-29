@@ -25,10 +25,7 @@ public class DepartmentServlet {
 
 	public DepartmentServlet() {
 		super();
-		departmentService.addDepartment(new Department(1l, "IT"));
-		departmentService.addDepartment(new Department(2l, "HR"));
-		departmentService.addDepartment(new Department(3l, "Admin"));
-		departmentService.addDepartment(new Department(4l, "Management"));
+		
 	}
 
 	@POST
@@ -44,14 +41,14 @@ public class DepartmentServlet {
 	@Path("/delete/{depId}")
 	public void deleteDepartment(@PathParam("depId") String depId) {
 		System.out.println("server delete");
-		departmentService.deleteDepartment(getDepartment(depId));
+		departmentService.deleteDepartment(getDepartment(depId).get(0));
 	}
 
 	@PUT
 	@Path("/update")
 	@Consumes(MediaType.TEXT_XML)
 	@Produces(MediaType.TEXT_XML)
-	public Department modifyDepartment(Department department) {
+	public List<Department> modifyDepartment(Department department) {
 		System.out.println("server update");
 		return departmentService.modifyDepartment(department);
 	}
@@ -59,36 +56,14 @@ public class DepartmentServlet {
 	@GET
 	@Path("/get/{depId}")
 	@Produces(MediaType.TEXT_XML)
-	public Department getDepartment(@PathParam("depId") String depId) {
+	public List<Department> getDepartment(@PathParam("depId") String depId) {
 		System.out.println("server get"+depId);
 		if(depId==null || depId.length()==0){
-			return departmentService.getDepartments().get(0);
+			return departmentService.getDepartments();
 		}
 		return departmentService.getDepartment(Long.parseLong(depId));
 	}
 	
-	@GET
-	@Path("/previos/{depId}")
-	@Produces(MediaType.TEXT_XML)
-	public Department getPreviousDepartment(@PathParam("depId") String depId) {
-		System.out.println("server get"+depId);
-		if(depId==null || depId.length()==0){
-			return departmentService.getDepartments().get(0);
-		}
-		return departmentService.getDepartment(Long.parseLong(depId));
-	}
-	
-	@GET
-	@Path("/next/{depId}")
-	@Produces(MediaType.TEXT_XML)
-	public Department getNextDepartment(@PathParam("depId") String depId) {
-		System.out.println("server get"+depId);
-		if(depId==null || depId.length()==0){
-			return departmentService.getDepartments().get(0);
-		}
-		return departmentService.getDepartment(Long.parseLong(depId));
-	}
-
 	@GET
 	@Path("/gets")
 	@Produces(MediaType.TEXT_XML)
