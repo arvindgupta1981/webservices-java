@@ -7,6 +7,8 @@
 	<packaging>pom</packaging>
 	<modules>
 		<module>SimpleRWS</module>
+		<module>Spring-Rest-Client</module>
+		<module>Spring-Rest-Server</module>
 	</modules>
 	<dependencies>
 		
