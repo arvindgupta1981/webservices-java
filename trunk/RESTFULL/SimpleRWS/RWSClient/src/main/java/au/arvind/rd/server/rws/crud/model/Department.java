@@ -7,8 +7,7 @@ public class Department {
 	Long id;
 	String name;
 
-	public Department() {
-	}
+	public Department() {}
 
 	public Department(Long id, String name) {
 		this.id = id;
@@ -66,7 +65,4 @@ public class Department {
 	public String toString() {
 		return id+":"+name;
 	}
-	
-	
-
 }
