@@ -1,6 +1,5 @@
 package au.arvind.rd.server.rws.crud.restServlets;
 
-import java.util.Collection;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -32,9 +31,9 @@ public class DepartmentServlet {
 	@Path("/add")
 	//@Consumes(MediaType.TEXT_XML)
 	@Produces(MediaType.TEXT_XML)
-	public String addDepartment(Department department) {
-		System.out.println("server add");
-		return departmentService.addDepartment(department).toString();
+	public Department addDepartment(Department department) {
+		System.out.println("server add:  " +department.getName());
+		return new Department(departmentService.addDepartment(department), department.getName());
 	}
 
 	@DELETE
